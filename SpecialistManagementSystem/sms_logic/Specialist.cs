@@ -12,5 +12,6 @@ namespace SpecialistManagementSystem.Logic
         public List<Appointment> Appointments { get; set; }
         public List<string> ListOfProfessions { get; set; }
         public string WorkEmail { get; set; }
+        public bool Deleted { get; set; }
     }
 }

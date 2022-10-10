@@ -26,7 +26,7 @@ namespace SpecialistManagementSystem.Logic
         {
             foreach (Specialist specialist in specialists)
             {
-                specialist.Appointments.Add(appointment);
+                specialist.AppointmentsAccepted.Add(appointment);
                 _repository.EditSpecialist(specialist.UserId, specialist);
             }
         }

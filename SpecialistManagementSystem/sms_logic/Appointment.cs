@@ -3,7 +3,7 @@
     public class Appointment
     {
         public Guid Id { get; set; }
-        public Person AppointmentCreatedBy { get; set; }
+        public Specialist AppointmentCreatedBy { get; set; }
         public List<Person> PeopleInvited { get; set; }
         public List<Person> PeopleAccepted { get; set; }
         public DateTime AppointmentStart { get; set; }

@@ -10,5 +10,7 @@
         public Address Address { get; set; }
         public string PhoneNumber { get; set; }
         public string PersonalEmail { get; set; }
+        public List<Appointment> AppointmentsInvitedFor { get; set; } = new List<Appointment>();
+        public List<Appointment> AppointmentsAccepted { get; set; } = new List<Appointment>();
     }
 }

@@ -9,6 +9,5 @@ namespace SpecialistManagementSystem.Logic
     public class Patient: Person
     {
         public List<Specialist> TreadedBy { get; set; }
-        public List<Appointment> Appointments { get; set; }
     }
 }

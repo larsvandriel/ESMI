@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: specialist-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: specialistmanagementservice
+  template:
+    metadata:
+      labels:
+        app: specialistmanagementservice
+    spec:
+      containers:
+        - name: specialistmanagementservice
+          image: larsvandriel/productmanagementsystem:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: specialist-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: specialistmanagementservice
+  ports:
+  - name: specialistmanagementservice
+    protocol: TCP
+    port: 80
+    targetPort: 80

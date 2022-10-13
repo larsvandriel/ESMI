@@ -18,17 +18,29 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A7CFA3B-64BA-4888-B8B1-76588AF9EA6E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpecialistManagementSystem", "SpecialistManagementSystem", "{0F55AA36-CA47-4664-A8CD-E7005D65D13C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sms_logic", "SpecialistManagementSystem\sms_logic\sms_logic.csproj", "{AD7392DA-C3AF-4980-8A32-EFED02DA04C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sms_logic", "SpecialistManagementSystem\sms_logic\sms_logic.csproj", "{AD7392DA-C3AF-4980-8A32-EFED02DA04C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sms_dal", "SpecialistManagementSystem\sms_dal\sms_dal.csproj", "{05761D95-7423-4090-8498-AA1DF5E04EC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sms_dal", "SpecialistManagementSystem\sms_dal\sms_dal.csproj", "{05761D95-7423-4090-8498-AA1DF5E04EC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sms_rabbitmq_access_layer", "SpecialistManagementSystem\sms_rabbitmq_access_layer\sms_rabbitmq_access_layer.csproj", "{92969135-5995-491B-945F-AA7F69770B7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sms_rabbitmq_access_layer", "SpecialistManagementSystem\sms_rabbitmq_access_layer\sms_rabbitmq_access_layer.csproj", "{92969135-5995-491B-945F-AA7F69770B7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sms_api", "SpecialistManagementSystem\sms_api\sms_api.csproj", "{CBC51164-E3F6-4871-9E9E-47B997DE8545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sms_api", "SpecialistManagementSystem\sms_api\sms_api.csproj", "{CBC51164-E3F6-4871-9E9E-47B997DE8545}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{F0E48C5D-35BC-43C4-AFFA-3441EC5D11DF}"
+	ProjectSection(SolutionItems) = preProject
+		K8S\appointment-depl.yaml = K8S\appointment-depl.yaml
+		K8S\ingress-srv.yaml = K8S\ingress-srv.yaml
+		K8S\local-pvc.yaml = K8S\local-pvc.yaml
+		K8S\mssql-depl.yaml = K8S\mssql-depl.yaml
+		K8S\publish_to_docker.bat = K8S\publish_to_docker.bat
+		K8S\restart_kubernetes_deployment.bat = K8S\restart_kubernetes_deployment.bat
+		K8S\specialist-depl.yaml = K8S\specialist-depl.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

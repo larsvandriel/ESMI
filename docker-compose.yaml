@@ -1,0 +1,81 @@
+version: "3.8"
+
+services:
+  db_appointment:
+    container_name: mssqlDbAppointment
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    volumes:
+      - esmiVolume:/var/opt/mssql/appointment
+    environment:
+      SA_PASSWORD: "pw123_Example"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433"
+      - "1403:1433"
+    networks:
+      - "esmi"
+    restart: on-failure
+
+  db_specialist:
+    container_name: mssqlDbSpecialist
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    volumes:
+      - esmiVolume:/var/opt/mssql/specialist
+    environment:
+      SA_PASSWORD: "pw123_Example"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433"
+      - "1402:1433"
+    networks:
+      - "esmi"
+    restart: on-failure
+  
+  rabbitmq3:
+    restart: on-failure
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    environment:
+        - RABBITMQ_DEFAULT_USER=myuser
+        - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+        # AMQP protocol port
+        - '5672:5672'
+        # HTTP management UI
+        - '15672:15672'
+    networks: 
+      - "esmi"
+  
+  backend_appointment:
+    restart: on-failure
+    depends_on:
+      - db_appointment
+      - rabbitmq3
+    container_name: AppointmentManagementSystem
+    build:
+      context: .
+      dockerfile: AppointmentManagementSystem\ams_api\Dockerfile
+    ports:
+      - "7003:80"
+    networks:
+      - "esmi"
+
+  backend_specialist:
+    restart: on-failure
+    depends_on:
+      - db_specialist
+      - rabbitmq3
+    container_name: SpecialistManagementSystem
+    build:
+      context: .
+      dockerfile: SpecialistManagementSystem\sms_api\Dockerfile
+    ports:
+      - "7002:80"
+    networks:
+      - "esmi"
+
+volumes:
+  esmiVolume:
+networks:
+  esmi:
+    external: true

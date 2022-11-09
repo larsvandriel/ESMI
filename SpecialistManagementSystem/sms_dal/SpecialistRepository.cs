@@ -4,24 +4,37 @@ namespace SpecialistManagementSystem.DataAccessLayer
 {
     public class SpecialistRepository : ISpecialistRepository
     {
+        public RepositoryContext RepositoryContext { get; set; }
+
+        public SpecialistRepository(RepositoryContext repositoryContext)
+        {
+            RepositoryContext = repositoryContext;
+        }
+
         public void CreateAppointemnt(Appointment appointment)
         {
-            throw new NotImplementedException();
+            RepositoryContext.Set<Appointment>().Add(appointment);
+            RepositoryContext.SaveChanges();
         }
 
         public Specialist CreateSpecialist(Specialist specialist)
         {
-            throw new NotImplementedException();
+            specialist = RepositoryContext.Set<Specialist>().Add(specialist).Entity;
+            RepositoryContext.SaveChanges();
+            return specialist;
         }
 
         public void DeleteAppointment(Guid id)
         {
-            throw new NotImplementedException();
+            Appointment appointment = RepositoryContext.Set<Appointment>().First(a => a.Id == id);
+            appointment.Status = AppointmentStatus.Cancelled;
+            RepositoryContext.SaveChanges();
         }
 
         public void DeletePatient(Guid id)
         {
-            throw new NotImplementedException();
+            RepositoryContext.Set<Patient>().Remove(p => p.UserId.Equals(id));
+            
         }
 
         public void DeleteSpecialist(Guid id)

@@ -1,3 +1,4 @@
+using AppointmentManagementSystem.API.Helpers;
 using AppointmentManagementSystem.API.RabbitMQ;
 using AppointmentManagementSystem.DataAccessLayer;
 using AppointmentManagementSystem.Logic;
@@ -21,6 +22,12 @@ builder.Services.Configure<IISOptions>(options =>
 });
 
 ConfigurationManager config = builder.Configuration;
+
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQHost");
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQPort");
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQUser");
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQPassword");
+
 var connectionString = config["mssqlconnection:connectionString"];
 
 Console.WriteLine(connectionString);

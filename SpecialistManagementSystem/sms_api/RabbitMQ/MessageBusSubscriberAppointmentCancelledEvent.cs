@@ -21,12 +21,30 @@ namespace SpecialistManagementSystem.API.RabbitMQ
             _configuration = configuration;
             _scopeFactory = scopeFactory;
 
+            Console.WriteLine();
+            Console.WriteLine(_configuration["RabbitMQHost"]);
+            Console.WriteLine(_configuration["RabbitMQPort"]);
+            Console.WriteLine(_configuration["RabbitMQUser"]);
+            Console.WriteLine(_configuration["RabbitMQPassword"]);
+            Console.WriteLine();
+
             InitializeRabbitMQ();
         }
 
         private void InitializeRabbitMQ()
         {
-            var factory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
+            //var factory = new ConnectionFactory() { HostName = "rabbitmq", Port = 5262, UserName = "myuser", Password = "mypassword" };
+
+            var factory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]), UserName = _configuration["RabbitMQUser"], Password = _configuration["RabbitMQPassword"] };
+
+            Console.WriteLine();
+            Console.WriteLine("Factory");
+            Console.WriteLine();
+            Console.WriteLine(factory.HostName);
+            Console.WriteLine(factory.Port);
+            Console.WriteLine(factory.UserName);
+            Console.WriteLine(factory.Password);
+            Console.WriteLine();
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();

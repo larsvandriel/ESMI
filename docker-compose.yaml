@@ -33,7 +33,7 @@ services:
   
   rabbitmq3:
     restart: on-failure
-    container_name: "rabbitmq"
+    container_name: rabbitmq
     image: rabbitmq:3.8-management-alpine
     environment:
         - RABBITMQ_DEFAULT_USER=myuser
@@ -55,6 +55,11 @@ services:
     build:
       context: .
       dockerfile: AppointmentManagementSystem\ams_api\Dockerfile
+    environment:
+      RabbitMQHost: rabbitmq
+      RabbitMQPort: "5672"
+      RabbitMQUser: "myuser"
+      RabbitMQPassword: "mypassword"
     ports:
       - "7003:80"
     networks:
@@ -69,6 +74,11 @@ services:
     build:
       context: .
       dockerfile: SpecialistManagementSystem\sms_api\Dockerfile
+    environment:
+      RabbitMQHost: rabbitmq
+      RabbitMQPort: "5672"
+      RabbitMQUser: "myuser"
+      RabbitMQPassword: "mypassword"
     ports:
       - "7002:80"
     networks:

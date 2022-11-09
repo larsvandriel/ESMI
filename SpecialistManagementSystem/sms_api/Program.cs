@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using SpecialistManagementSystem.API.Converters;
+using SpecialistManagementSystem.API.Helpers;
 using SpecialistManagementSystem.API.RabbitMQ;
 using SpecialistManagementSystem.DataAccessLayer;
 using SpecialistManagementSystem.Logic;
 using SpecialistManagementSystem.RabbitMQAccessLayer;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,11 @@ builder.Services.Configure<IISOptions>(options =>
 ConfigurationManager config = builder.Configuration;
 var connectionString = config["mssqlconnection:connectionString"];
 
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQHost");
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQPort");
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQUser");
+ConfigurationLoader.LoadConfigurationValue(config, "RabbitMQPassword");
+
 Console.WriteLine(connectionString);
 
 builder.Services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connectionString));
@@ -36,7 +44,11 @@ builder.Services.AddScoped<ISpecialistManager, SpecialistManager>();
 builder.Services.AddScoped<ISpecialistRepository, SpecialistRepository>();
 builder.Services.AddScoped<IMessageBusClient, MessageBusClient>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    x.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
